@@ -16,7 +16,7 @@ module.exports = appInfo => {
   config.keys = appInfo.name + '_1599371946507_9765';
 
   // add your middleware config here
-  config.middleware = [];
+  config.middleware = [ 'authority', 'errorHandler' ];
   config.validate = {
     convert: true,
     widelyUndefined: true,
@@ -25,7 +25,22 @@ module.exports = appInfo => {
   const userConfig = {
     // myAppName: 'egg',
   };
-
+  config.security = {
+    csrf: {
+      enable: false,
+    },
+  };
+  config.mysql = {
+    client: {
+      host: '127.0.0.1',
+      port: '3306',
+      user: 'root',
+      password: '',
+      database: 'blog',
+    },
+    app: true,
+    agent: false,
+  };
   return {
     ...config,
     ...userConfig,
