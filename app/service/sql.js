@@ -58,7 +58,14 @@ class SqlService extends Service {
     }
   }
   async selectCount(table) {
-    const query = await this.app.mysql.query(`select count(id) from ${table}`);
+    const param = { ...this.ctx.request.body };
+    let str = '';
+    for (const i in param) {
+      if (param[i] && i !== 'page' && i !== 'limit') {
+        str += (str ? ' and ' : '') + `${i} = '${param[i]}'`;
+      }
+    }
+    const query = await this.app.mysql.query(`select count(id) from ${table} ${str ? ('where ' + str) : ''}`);
     return query[0]['count(id)'];
   }
   async selectAll({ table, columns }) {

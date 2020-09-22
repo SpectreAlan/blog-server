@@ -43,6 +43,8 @@ module.exports = app => {
   router.post('/images/add', controller.settings.images.add);
   router.post('/images/del', controller.settings.images.delete);
   router.post('/uploads/images', controller.upload.images);
+  // 博文管理
+  router.post('/article/search', controller.blog.article.search);
   /**
       ---------------------------前台API--------------------------------
  */
