@@ -34,6 +34,10 @@ module.exports = app => {
   router.post('/role/add', controller.admin.role.add);
   router.post('/role/del', controller.admin.role.delete);
   router.post('/role/edit', controller.admin.role.edit);
+  // 基础设置
+  router.post('/basic/search', controller.settings.basic.search);
+  router.post('/basic/add', controller.settings.basic.add);
+  router.post('/basic/edit', controller.settings.basic.edit);
   /**
       ---------------------------前台API--------------------------------
  */
