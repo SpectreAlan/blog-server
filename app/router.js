@@ -43,8 +43,20 @@ module.exports = app => {
   router.post('/images/add', controller.settings.images.add);
   router.post('/images/del', controller.settings.images.delete);
   router.post('/uploads/images', controller.upload.images);
+  // 标签管理
+  router.post('/tags/search', controller.blog.tag.search);
+  router.post('/tags/add', controller.blog.tag.add);
+  router.post('/tags/edit', controller.blog.tag.edit);
+  router.post('/tags/del', controller.blog.tag.delete);
+  router.post('/tags/belong', controller.blog.tag.belong);
   // 博文管理
   router.post('/article/search', controller.blog.article.search);
+  router.post('/article/add', controller.blog.article.add);
+  router.post('/article/del', controller.blog.article.delete);
+  router.post('/article/edit', controller.blog.article.edit);
+  router.post('/write/search', controller.blog.article.detail);
+  router.post('/category/search/all', controller.blog.article.category);
+  router.post('/tags/search/all', controller.blog.article.tag);
   /**
       ---------------------------前台API--------------------------------
  */

@@ -2,15 +2,11 @@
 
 const Controller = require('../base_controller');
 
-class ArticleController extends Controller {
+class CategoryController extends Controller {
   async search() {
     const { service } = this;
     const total = await service.sql.selectCount('article');
-    const list = await service.sql.select({
-      table: 'article',
-      columns: [ 'id', 'article_title', 'category_name', 'create_time', 'update_time', 'tag_name', 'readed', 'cover', 'status' ],
-      orders: [ 'create_time', 'desc' ],
-    });
+    const list = await service.sql.select({ table: 'article', columns: [ 'id', 'article_title', 'category_name', 'create_time', 'update_time', 'tag_name', 'readed', 'cover', 'status' ] });
     this.success({ result: { total, list } });
   }
   async detail() {
@@ -18,16 +14,6 @@ class ArticleController extends Controller {
     let result = await service.sql.select({ table: 'article', columns: [ 'id', 'tic', 'keywords', 'article_title', 'category_name', 'article_des', 'update_time', 'tag_name', 'content', 'cover', 'status' ] });
     result = result[0];
     result.tag_name = result.tag_name.split(',');
-    this.success({ result });
-  }
-  async tag() {
-    const { service } = this;
-    const result = await service.sql.selectAll({ table: 'tags', columns: [ 'id', 'tag_name' ] });
-    this.success({ result });
-  }
-  async category() {
-    const { service } = this;
-    const result = await service.sql.selectAll({ table: 'category', columns: [ 'id', 'category_name' ] });
     this.success({ result });
   }
   async add() {
@@ -52,4 +38,4 @@ class ArticleController extends Controller {
   }
 }
 
-module.exports = ArticleController;
+module.exports = CategoryController;
