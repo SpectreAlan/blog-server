@@ -48,6 +48,20 @@ module.exports = appInfo => {
     encrypt: true,
     renew: true,
   };
+  config.upLoad = {
+    multipart: true,
+    formidable: {
+      maxFileSize: 200 * 1024 * 1024, // 设置上传文件大小最大限制，默认2M
+    },
+  };
+  config.imageType = [ 'png', 'jpg', 'jpeg', 'gif' ],
+  config.github = {
+    reqBaseUrl: 'https://api.github.com/repos/SpectreAlan/images/contents/',
+    imgBaseUrl: 'https://raw.githubusercontent.com/SpectreAlan/images/master/',
+    token: '09e2890ba9bced95e8c98fc0fedee13c03edc673',
+  },
+  config.bing = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',
+  config.hitokoto = 'https://v1.hitokoto.cn';
   return {
     ...config,
     ...userConfig,

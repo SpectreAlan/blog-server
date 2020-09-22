@@ -38,6 +38,11 @@ module.exports = app => {
   router.post('/basic/search', controller.settings.basic.search);
   router.post('/basic/add', controller.settings.basic.add);
   router.post('/basic/edit', controller.settings.basic.edit);
+  // 图片管理
+  router.post('/images/search', controller.settings.images.search);
+  router.post('/images/add', controller.settings.images.add);
+  router.post('/images/del', controller.settings.images.delete);
+  router.post('/uploads/images', controller.upload.images);
   /**
       ---------------------------前台API--------------------------------
  */
