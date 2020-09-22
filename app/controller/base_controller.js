@@ -3,12 +3,13 @@
 const { Controller } = require('egg');
 
 class BaseController extends Controller {
-  success(data, msg) {
-    this.ctx.body = {
-      msg,
-      code: 1,
-      data,
-    };
+  success({ result, type }) {
+    const res = { code: 1, data: result };
+    if (type) {
+      res.code = result ? 1 : 0;
+      res.msg = type + (res.code ? '成功' : '失败');
+    }
+    this.ctx.body = res;
   }
   error(msg, data) {
     this.ctx.body = {

@@ -10,13 +10,13 @@ class ReportController extends Controller {
     const comment = await service.sql.selectCount('comment');
     const statistics = await service.sql.selectCount('statistics');
     const visitors = await service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'visitors' } });
-    this.success({
+    this.success({ result: {
       images,
       article,
       comment,
       statistics,
       visitors: Number(visitors[0].setting_content),
-    });
+    } });
   }
   async item() {
     const { ctx, app } = this;
@@ -35,13 +35,13 @@ class ReportController extends Controller {
         --year;
       }
     }
-    this.success(arr.reverse());
+    this.success({ result: arr.reverse() });
   }
   async category() {
     const { service } = this;
     const list = await service.sql.selectAll({ table: 'statistics', columns: [ 'browser_name', 'city_name' ] });
     const result = await service.api.report.item(list);
-    this.success(result);
+    this.success({ result });
   }
 }
 

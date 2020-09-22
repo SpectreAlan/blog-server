@@ -22,7 +22,7 @@ class LoginController extends Controller {
       ctx.session.role = result.role_id;
       ctx.session.username = ctx.request.body.username;
       ctx.session.captcha = '';
-      this.success(result);
+      this.success({ result });
     } else {
       this.error('用户名/密码错误');
     }
@@ -34,17 +34,13 @@ class LoginController extends Controller {
     const permission = roles[0].role_keys.split(',');
     const menu = await service.sql.selectAll({ table: 'menu' });
     const result = await service.tools.permission(menu, permission);
-    if (result) {
-      this.success(result);
-    } else {
-      this.error('角色获取失败，请联系管理员');
-    }
+    this.success({ result });
   }
   async captcha() {
     const { ctx, service } = this;
     const captcha = await service.tools.captcha();
     ctx.response.type = 'image/svg+xml';
-    this.success(captcha.data);
+    this.success({ result: captcha.data });
   }
 }
 
