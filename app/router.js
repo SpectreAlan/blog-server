@@ -64,6 +64,17 @@ module.exports = app => {
   router.post('/comment/add', controller.blog.comment.add);
   router.post('/comment/del', controller.blog.comment.delete);
   router.post('/comment/edit', controller.blog.comment.edit);
+  // fullPage
+  router.post('/fullPage/search', controller.blog.fullPage.search);
+  router.post('/fullPage/del', controller.blog.fullPage.delete);
+  // 一言
+  router.post('/poem/search', controller.blog.poem.search);
+  router.post('/poem/del', controller.blog.poem.delete);
+  // 相册管理
+  router.post('/gallery/search', controller.blog.gallery.search);
+  router.post('/gallery/del', controller.blog.gallery.delete);
+  router.post('/gallery/edit', controller.blog.gallery.edit);
+  router.post('/gallery/add', controller.blog.gallery.add);
   /**
       ---------------------------前台API--------------------------------
  */

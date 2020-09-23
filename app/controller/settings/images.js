@@ -25,7 +25,6 @@ class ImagesController extends Controller {
     } else {
       this.error('删除失败');
     }
-
   }
 }
 
