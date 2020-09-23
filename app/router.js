@@ -43,12 +43,14 @@ module.exports = app => {
   router.post('/images/add', controller.settings.images.add);
   router.post('/images/del', controller.settings.images.delete);
   router.post('/uploads/images', controller.upload.images);
-  // 标签管理
+  // 分类管理
   router.post('/tags/search', controller.blog.tag.search);
-  router.post('/tags/add', controller.blog.tag.add);
-  router.post('/tags/edit', controller.blog.tag.edit);
-  router.post('/tags/del', controller.blog.tag.delete);
-  router.post('/tags/belong', controller.blog.tag.belong);
+  // 标签管理
+  router.post('/category/search', controller.blog.category.search);
+  router.post('/category/add', controller.blog.category.add);
+  router.post('/category/edit', controller.blog.category.edit);
+  router.post('/category/del', controller.blog.category.delete);
+  router.post('/category/belong', controller.blog.category.belong);
   // 博文管理
   router.post('/article/search', controller.blog.article.search);
   router.post('/article/add', controller.blog.article.add);
