@@ -59,6 +59,11 @@ module.exports = app => {
   router.post('/write/search', controller.blog.article.detail);
   router.post('/category/search/all', controller.blog.article.category);
   router.post('/tags/search/all', controller.blog.article.tag);
+  // 评论管理
+  router.post('/comment/search', controller.blog.comment.search);
+  router.post('/comment/add', controller.blog.comment.add);
+  router.post('/comment/del', controller.blog.comment.delete);
+  router.post('/comment/edit', controller.blog.comment.edit);
   /**
       ---------------------------前台API--------------------------------
  */
