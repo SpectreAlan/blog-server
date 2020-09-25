@@ -12,7 +12,7 @@ class CommentController extends Controller {
   async add() {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
-    param.create_time = await service.tools.time();
+    param.create_time = service.tools.time();
     const result = service.sql.insert({ table: 'comment', param });
     this.success({ result, type: '添加' });
   }

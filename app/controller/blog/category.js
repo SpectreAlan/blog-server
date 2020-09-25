@@ -12,14 +12,14 @@ class CategoryController extends Controller {
   async add() {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
-    param.update_time = await service.tools.time();
+    param.update_time = service.tools.time();
     const result = service.sql.insert({ table: 'category', param });
     this.success({ result, type: '添加' });
   }
   async edit() {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
-    param.update_time = await service.tools.time();
+    param.update_time = service.tools.time();
     const result = await service.sql.update({ table: 'category', param });
     this.success({ result, type: '编辑' });
   }

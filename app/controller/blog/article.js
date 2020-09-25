@@ -33,7 +33,7 @@ class ArticleController extends Controller {
   async add() {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
-    const time = await service.tools.time();
+    const time = service.tools.time();
     param.update_time = time;
     param.create_time = time;
     const result = service.sql.insert({ table: 'article', param });
@@ -42,7 +42,7 @@ class ArticleController extends Controller {
   async edit() {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
-    param.update_time = await service.tools.time();
+    param.update_time = service.tools.time();
     const result = await service.sql.update({ table: 'article', param });
     this.success({ result, type: '编辑' });
   }
