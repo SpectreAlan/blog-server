@@ -1,7 +1,8 @@
 /* eslint valid-jsdoc: "off" */
 
 'use strict';
-
+const process = require('process');
+const path = require('path');
 /**
  * @param {Egg.EggAppInfo} appInfo app info
  */
@@ -21,14 +22,14 @@ module.exports = appInfo => {
     convert: true,
     widelyUndefined: true,
   };
-  // add your user config here
   const userConfig = {
-    // myAppName: 'egg',
+    myAppName: 'blog',
   };
   config.security = {
     csrf: {
       enable: false,
     },
+    domainWhiteList: [ '*' ],
   };
   config.mysql = {
     client: {
@@ -54,14 +55,26 @@ module.exports = appInfo => {
       maxFileSize: 200 * 1024 * 1024, // 设置上传文件大小最大限制，默认2M
     },
   };
-  config.imageType = [ 'png', 'jpg', 'jpeg', 'gif' ],
+  config.imageType = [ 'png', 'jpg', 'jpeg', 'gif' ];
   config.github = {
     reqBaseUrl: 'https://api.github.com/repos/SpectreAlan/images/contents/',
     imgBaseUrl: 'https://raw.githubusercontent.com/SpectreAlan/images/master/',
-    token: 'd2459f0790fdc0327167e2ec0d769f2bfe3e87bc',
-  },
-  config.bing = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1',
+    token: '92e2b33a43f0554e030fa927adea36f13b2e3ae0',
+  };
+  config.bing = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1';
   config.hitokoto = 'https://v1.hitokoto.cn';
+  config.rundir = process.cwd() + '/run';// 配置执行时临时文件的路径
+  config.logger = {
+    dir: path.join(process.cwd(), 'logs'), // 配置普通日志文件地址
+  };
+  config.customLogger = {
+    scheduleLogger: {
+      file: path.join(process.cwd(), 'logs', 'egg-schedule.log'), // 配置定时任务日志的地址
+    },
+  };
+  config.static = {
+    dir: process.cwd() + '/public',
+  };
   return {
     ...config,
     ...userConfig,

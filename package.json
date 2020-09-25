@@ -18,10 +18,11 @@
     "autod-egg": "^1.1.0",
     "egg-bin": "^4.11.0",
     "egg-ci": "^1.11.0",
-    "egg-mock": "^3.21.0",
+    "egg-cors": "^2.2.3",
     "eslint": "^5.13.0",
     "eslint-config-egg": "^7.1.0",
-    "svg-captcha": "^1.4.0"
+    "svg-captcha": "^1.4.0",
+    "ua-parser-js": "^0.7.22"
   },
   "engines": {
     "node": ">=10.0.0"
@@ -36,8 +37,24 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod"
+    "autod": "autod",
+    "pkgwin": "pkg . -t win --out-path ./dist --debug",
+	  "pkglinux": "pkg . -t linux --out-path /usr/dist --debug"
   },
+  "bin": "pkg-build.js",
+	  "pkg": {
+	    "scripts": [
+	      "./app/**/*.js",
+	      "./config/**/*.js",
+	      "./app.js"
+	    ],
+	    "assets": [
+	      "./public/**/*",
+	      "./node_modules/nanoid/**/*.js",
+	      "./node_modules/egg-mysql/**/*",
+	      "./node_modules/egg-view-nunjucks/**/*"
+	    ]
+	  },
   "ci": {
     "version": "10"
   },
