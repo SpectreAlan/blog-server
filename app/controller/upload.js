@@ -8,7 +8,7 @@ class UploadController extends Controller {
     const { storage, image_title, file } = ctx.request.body;
     const type = file.match(/image\/(\S*);/)[1];
     const title = new Date().getTime() + '.' + type;
-    const create_time = await service.tools.time();
+    const create_time = service.tools.time();
     const upload = await service.github.upload(type, file, title, create_time);
     if (upload) {
       const image_url = config.github.imgBaseUrl + 'blog/' + title;
