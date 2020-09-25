@@ -26,7 +26,7 @@ class ToolsService extends Service {
       };
     }
   }
-  async time(format = 'yyyy-MM-dd hh:mm:ss', t) {
+  time(format = 'yyyy-MM-dd hh:mm:ss', t) {
     const time = t ? new Date(t) : new Date();
     const o = {
       'M+': time.getMonth() + 1,
@@ -51,30 +51,9 @@ class ToolsService extends Service {
 
     return format;
   }
-  async permission(menus, permission) {
-    const menu = {};
-    const menu_name = {};
-    const api = [];
-    const roles = [];
-    menus.sort((a, b) => b.menu_type - a.menu_type);
-    menus.map(item => {
-      if (item.menu_key) {
-        menu[item.id] = item.menu_key;
-        menu_name[item.id] = item.menu_name;
-      } else {
-        if (permission.includes(String(item.id))) {
-          api.push('/' + menu[item.parentId] + '/' + item.permission);
-          if (item.permission === 'search') {
-            const o = {};
-            o.title = menu_name[item.parentId];
-            o.key = menu[item.parentId];
-            roles.push(o);
-          }
-        }
-      }
-    });
-    this.ctx.session.api = api;
-    return roles;
+  cover() {
+    const i = parseInt(Math.random() * 31);
+    return 'https://raw.githubusercontent.com/SpectreAlan/images/master/' + i + '.jpg';
   }
 }
 

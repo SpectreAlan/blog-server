@@ -4,34 +4,37 @@ const Service = require('egg').Service;
 
 class SqlService extends Service {
   async insert({ table, param }) {
-    const { app, ctx } = this;
+    const { app, ctx, logger } = this;
     try {
       const result = await app.mysql.insert(table, param || ctx.request.body);
       return result.affectedRows;
     } catch (error) {
       ctx.throw(400, error.sqlMessage);
+      logger.error('insert fail', error);
     }
   }
   async delete({ table }) {
-    const { app, ctx } = this;
+    const { app, ctx, logger } = this;
     try {
       const result = await app.mysql.delete(table, ctx.request.body);
       return result.affectedRows;
     } catch (error) {
       ctx.throw(400, error.sqlMessage);
+      logger.error('delete fail', error);
     }
   }
   async update({ table, param }) {
-    const { app, ctx } = this;
+    const { app, ctx, logger } = this;
     try {
       const result = await app.mysql.update(table, param || ctx.request.body);
       return result.affectedRows;
     } catch (error) {
       ctx.throw(400, error.sqlMessage);
+      logger.error('update fail', error);
     }
   }
   async select({ table, columns, where, orders }) {
-    const { app, ctx } = this;
+    const { app, ctx, logger } = this;
     const limit = Number(ctx.request.body.limit) || 10;
     const page = Number(ctx.request.body.page) || 1;
     const offset = (page * limit) - limit;
@@ -55,6 +58,7 @@ class SqlService extends Service {
       return result;
     } catch (error) {
       ctx.throw(400, error.sqlMessage);
+      logger.error('query fail', error);
     }
   }
   async selectCount(table) {
