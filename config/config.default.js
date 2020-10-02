@@ -59,7 +59,7 @@ module.exports = appInfo => {
   config.github = {
     reqBaseUrl: 'https://api.github.com/repos/SpectreAlan/images/contents/',
     imgBaseUrl: 'https://raw.githubusercontent.com/SpectreAlan/images/master/',
-    token: '142900f06c65ce046f5bcd4f653fd6b26dcd5e5b',
+    token: '',
   };
   config.bing = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1';
   config.hitokoto = 'https://v1.hitokoto.cn';
