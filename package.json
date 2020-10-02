@@ -10,7 +10,7 @@
     "axios": "^0.20.0",
     "egg": "^2.15.1",
     "egg-mysql": "^3.0.0",
-    "egg-scripts": "^2.11.0",
+    "egg-scripts": "^2.13.0",
     "egg-validate": "^2.0.2"
   },
   "devDependencies": {
@@ -28,8 +28,8 @@
     "node": ">=10.0.0"
   },
   "scripts": {
-    "start": "egg-scripts start --daemon --title=egg-server-server",
-    "stop": "egg-scripts stop --title=egg-server-server",
+    "start": "egg-scripts start --daemon --title=blog-server",
+    "stop": "egg-scripts stop --title=blog-server",
     "dev": "egg-bin dev",
     "debug": "egg-bin debug",
     "test": "npm run lint -- --fix && npm run test-local",
@@ -37,24 +37,8 @@
     "cov": "egg-bin cov",
     "lint": "eslint .",
     "ci": "npm run lint && npm run cov",
-    "autod": "autod",
-    "pkgwin": "pkg . -t win --out-path ./dist --debug",
-	  "pkglinux": "pkg . -t linux --out-path /usr/dist --debug"
+    "autod": "autod"
   },
-  "bin": "pkg-build.js",
-	  "pkg": {
-	    "scripts": [
-	      "./app/**/*.js",
-	      "./config/**/*.js",
-	      "./app.js"
-	    ],
-	    "assets": [
-	      "./public/**/*",
-	      "./node_modules/nanoid/**/*.js",
-	      "./node_modules/egg-mysql/**/*",
-	      "./node_modules/egg-view-nunjucks/**/*"
-	    ]
-	  },
   "ci": {
     "version": "10"
   },
