@@ -24,18 +24,18 @@ class WebController extends Controller {
     const recent = await service.sql.select({
       table: 'article',
       columns: [ 'id', 'article_title', 'update_time', 'cover' ],
+      orders: [ 'update_time', 'desc' ],
       where: { status: 1 },
     });
     const tags = await service.sql.selectAll({
       table: 'tags',
       columns: [ 'id', 'tag_name' ],
     });
-    const fullPages = service.tools.cover();
     const poems = await service.sql.selectAll({
       table: 'poem',
       columns: [ 'poem', 'author' ],
     });
-    const result = await service.api.web.homeData(category, recent, tags, fullPages, poems);
+    const result = await service.api.web.homeData(category, recent, tags, poems);
     this.success({ result });
   }
   async timeLine() {
@@ -51,9 +51,10 @@ class WebController extends Controller {
     this.success({ result: { list, image } });
   }
   async statistics() {
-    const { service } = this;
+    const { service, app } = this;
     await service.api.web.statistics();
-    const total = await service.sql.selectCount('statistics');
+    const query = await app.mysql.query('select count(id) from statistics');
+    const total = query[0]['count(id)'];
     const visitors = await service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'visitors' } });
     this.success({ result: { total: Number(visitors[0].setting_content), visitors: total } });
   }

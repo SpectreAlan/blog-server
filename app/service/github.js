@@ -9,12 +9,18 @@ class GithubService extends Service {
     if (!config.imageType.includes(type)) {
       ctx.throw(400, '格式有误，仅支持png、jpg、jpeg、gif格式的图片');
     }
-    const res = await axios.put(config.github.reqBaseUrl + 'blog/' + title + '?access_token=' + config.github.token,
-      JSON.stringify({
+    const res = await axios({
+      headers: {
+        Authorization: 'token ' + config.github.token,
+      },
+      method: 'put',
+      url: config.github.reqBaseUrl + 'blog/' + title,
+      data: JSON.stringify({
         message: 'add image ' + create_time,
         content: file.split('base64,')[1],
-      })
-    );
+      }),
+    });
+    console.log(res.data);
     return res.data.content.sha;
   }
   async delete(url) {
@@ -24,9 +30,9 @@ class GithubService extends Service {
     const res = await axios(
       {
         method: 'delete',
-        url: baseUrl + '?access_token=' + config.github.token,
+        url: baseUrl,
         data: JSON.stringify({ message: 'delete image', sha: sha.data.sha }),
-        headers: { 'Content-Type': 'application/json' },
+        headers: { 'Content-Type': 'application/json', Authorization: 'token ' + config.github.token },
       });
     return res.status === 200;
   }

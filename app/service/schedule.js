@@ -21,13 +21,13 @@ class ScheduleService extends Service {
     const info = await axios.get(config.github.reqBaseUrl + day + '.jpg');
     const update = await axios({
       method: 'put',
-      url: config.github.reqBaseUrl + day + '.jpg?access_token=' + config.github.token,
+      url: config.github.reqBaseUrl + day + '.jpg',
       data: JSON.stringify({
         message: 'update image ' + time,
         sha: info.data.sha,
         content: base64,
       }),
-      headers: { 'Content-Type': 'application/json' },
+      headers: { 'Content-Type': 'application/json', Authorization: 'token ' + config.github.token },
     });
     return update.data.content.sha ? 1 : 0;
   }

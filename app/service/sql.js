@@ -33,6 +33,7 @@ class SqlService extends Service {
       logger.error('update fail', error);
     }
   }
+
   async select({ table, columns, where, orders }) {
     const { app, ctx, logger } = this;
     const limit = Number(ctx.request.body.limit) || 10;

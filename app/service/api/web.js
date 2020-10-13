@@ -3,7 +3,7 @@
 const Service = require('egg').Service;
 const parser = require('ua-parser-js');
 class WebService extends Service {
-  async homeData(category, recent, tags, fullPages, poems) {
+  async homeData(category, recent, tags, poems) {
     const res = {};
     for (let i = 0; i < category.length; i++) {
       if (res[category[i].category_name]) {
@@ -19,9 +19,9 @@ class WebService extends Service {
       o.count = res[i];
       categories.push(o);
     }
-    const fullPage = fullPages[parseInt(Math.random() * (fullPages.length - 1))].url;
     let poem = poems[parseInt(Math.random() * (poems.length - 1))];
     poem = poem.poem + ' _by_ ' + poem.author;
+    const fullPage = this.service.tools.cover();
     return { category: categories, recent, tags, fullPage, poem };
   }
   async statistics() {
