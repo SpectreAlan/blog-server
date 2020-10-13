@@ -57,7 +57,7 @@ module.exports = appInfo => {
   };
   config.imageType = [ 'png', 'jpg', 'jpeg', 'gif' ];
   config.github = {
-    reqBaseUrl: 'https://api.github.com/repos/SpectreAlan/images/contents/',
+    reqBaseUrl: 'http://api.github.com/repos/SpectreAlan/images/contents/',
     imgBaseUrl: 'https://raw.githubusercontent.com/SpectreAlan/images/master/',
     token: '',
   };
