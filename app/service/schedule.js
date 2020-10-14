@@ -17,7 +17,7 @@ class ScheduleService extends Service {
   async upload(base64) {
     const { config, service } = this;
     const time = service.tools.time();
-    const day = new Date().getDay();
+    const day = new Date().getDate();
     const info = await axios.get(config.github.reqBaseUrl + day + '.jpg');
     const update = await axios({
       method: 'put',
@@ -42,6 +42,27 @@ class ScheduleService extends Service {
       type_name: type,
     } });
     return result;
+  }
+  async baiduPush() {
+    const { config, service } = this;
+    const urls = [
+      'https://997.dog/about',
+      'https://997.dog/timeLine',
+      'https://997.dog/gallery',
+      'https://997.dog/imageZip',
+    ];
+    const ids = await service.sql.select({ table: 'article', columns: [ 'id' ] });
+    for (let i = 0; i < ids.length; i++) {
+      urls.push('https://997.dog/detail/' + ids[i].id);
+    }
+    const data = urls.join('\n');
+    const res = await axios({
+      method: 'post',
+      url: config.baiduPush,
+      data,
+      headers: { 'Content-Type': 'application/json' },
+    });
+    return res.data;
   }
 }
 
