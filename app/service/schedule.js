@@ -51,7 +51,7 @@ class ScheduleService extends Service {
       'https://997.dog/gallery',
       'https://997.dog/imageZip',
     ];
-    const ids = await service.sql.select({ table: 'article', columns: [ 'id' ] });
+    const ids = await service.sql.selectAll({ table: 'article', columns: [ 'id' ] });
     for (let i = 0; i < ids.length; i++) {
       urls.push('https://997.dog/detail/' + ids[i].id);
     }
@@ -62,6 +62,7 @@ class ScheduleService extends Service {
       data,
       headers: { 'Content-Type': 'application/json' },
     });
+    console.log('成功推送条数: ' + res.data.success);
     return res.data;
   }
 }
