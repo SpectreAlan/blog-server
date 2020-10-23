@@ -63,7 +63,7 @@ class WebController extends Controller {
     const article_id = ctx.request.body.id;
     const detail = await service.sql.select({
       table: 'article',
-      columns: [ 'id', 'content', 'tic', 'article_title', 'create_time', 'update_time', 'category_name', 'readed', 'keywords' ],
+      columns: [ 'id', 'content', 'tic', 'article_title', 'create_time', 'update_time', 'article_des', 'category_name', 'readed', 'keywords' ],
     });
     const result = detail[0];
     if (!result) {
