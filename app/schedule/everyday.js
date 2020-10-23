@@ -10,9 +10,9 @@ exports.task = async function(ctx) {
   const { service } = ctx;
   const url = await service.schedule.bing();
   const buffer = await service.schedule.buffer(url);
-  service.schedule.upload(buffer);
+  await service.schedule.upload(buffer);
   // baidu push
-  service.schedule.baiduPush();
+  await service.schedule.baiduPush();
   // 一言
-  ctx.service.schedule.poem();
+  await service.schedule.poem();
 };
