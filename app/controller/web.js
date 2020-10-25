@@ -27,6 +27,7 @@ class WebController extends Controller {
       orders: [ 'update_time', 'desc' ],
       where: { status: 1 },
     });
+    const notice = await service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'notice' } });
     const tags = await service.sql.selectAll({
       table: 'tags',
       columns: [ 'id', 'tag_name' ],
@@ -35,7 +36,7 @@ class WebController extends Controller {
       table: 'poem',
       columns: [ 'poem', 'author' ],
     });
-    const result = await service.api.web.homeData(category, recent, tags, poems);
+    const result = await service.api.web.homeData(category, recent, tags, poems, notice[0].setting_content);
     this.success({ result });
   }
   async timeLine() {
