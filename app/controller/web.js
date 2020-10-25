@@ -56,8 +56,10 @@ class WebController extends Controller {
     await service.api.web.statistics();
     const query = await app.mysql.query('select count(id) from statistics');
     const total = query[0]['count(id)'];
+    const todayQuery = await app.mysql.query('select count(id) from statistics where TO_DAYS(now())=TO_DAYS(create_time)');
+    const today = todayQuery[0]['count(id)'];
     const visitors = await service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'visitors' } });
-    this.success({ result: { total: Number(visitors[0].setting_content), visitors: total } });
+    this.success({ result: { total: Number(visitors[0].setting_content), visitors: total, today } });
   }
   async detail() {
     const { service, ctx, app } = this;
