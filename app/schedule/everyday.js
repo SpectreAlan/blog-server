@@ -7,10 +7,12 @@ exports.schedule = {
 
 exports.task = async function(ctx) {
   // fullPage
-  const { service } = ctx;
+  const { service, config } = ctx;
   const url = await service.schedule.bing();
+  const name = new Date().getDate() + '.jpg';
+  await service.github.delete(config.github.imgBaseUrl + name);
   const buffer = await service.schedule.buffer(url);
-  await service.schedule.upload(buffer);
+  await service.schedule.upload(buffer, name);
   // baidu push
   await service.schedule.baiduPush();
   // 一言

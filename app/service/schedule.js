@@ -14,22 +14,21 @@ class ScheduleService extends Service {
     });
     return buffer.data.toString('base64');
   }
-  async upload(base64) {
+  async upload(base64, name) {
     const { config, service } = this;
     const time = service.tools.time();
-    const day = new Date().getDate();
-    const info = await axios.get(config.github.reqBaseUrl + day + '.jpg');
-    const update = await axios({
+    const res = await axios({
+      headers: {
+        Authorization: 'token ' + config.github.token,
+      },
       method: 'put',
-      url: config.github.reqBaseUrl + day + '.jpg',
+      url: config.github.reqBaseUrl + name,
       data: JSON.stringify({
         message: 'update image ' + time,
-        sha: info.data.sha,
         content: base64,
       }),
-      headers: { 'Content-Type': 'application/json', Authorization: 'token ' + config.github.token },
     });
-    return update.data.content.sha ? 1 : 0;
+    return res.data.content.sha;
   }
   async poem() {
     const { config, service } = this;
