@@ -67,7 +67,7 @@ module.exports = appInfo => {
   };
   config.bing = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1';
   config.hitokoto = 'https://v1.hitokoto.cn';
-  config.baiduPush = 'http://data.zz.baidu.com/urls?site=https://www.jrsee.com&token=h4e0NAXrE0RQhnAK';
+  config.baiduPush = 'http://data.zz.baidu.com/urls?site=https://jrsee.com&token=Vzm6yLROGTuW529Q';
   config.rundir = process.cwd() + '/run';// 配置执行时临时文件的路径
   config.logger = {
     dir: path.join(process.cwd(), 'logs'), // 配置普通日志文件地址
