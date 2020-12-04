@@ -8,11 +8,6 @@ class MenuController extends Controller {
     const result = await service.sql.selectAll({ table: 'menu' });
     this.success({ result });
   }
-  async types() {
-    const { service } = this;
-    const result = await service.sql.selectAll({ table: 'menu_type', columns: [ 'type_title', 'type_key' ] });
-    this.success({ result });
-  }
   async add() {
     const { service } = this;
     const result = service.sql.insert({ table: 'menu' });
