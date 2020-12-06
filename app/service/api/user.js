@@ -4,29 +4,28 @@ const Service = require('egg').Service;
 
 class UserService extends Service {
   permission(menus, permission) {
-    const keys = {};
-    const titles = {};
     const api = [];
     const roles = [];
     let pids = [];
     menus.sort((a, b) => b.menu_type - a.menu_type);
     menus.map(item => {
-      if (item.menu_key) {
-        keys[item.id] = item.menu_key;
-        titles[item.id] = item.menu_name;
-      } else {
-        if (permission.includes(String(item.id))) {
-          api.push(item.permission);
-          pids.push(item.parentId);
-        }
+      if (permission.includes(String(item.id))) {
+        api.push(item.permission);
+        pids.push(item.parentId || item.id);
       }
     });
     this.ctx.session.permission = api;
     pids = Array.from(new Set(pids));
     pids.map(id => {
+      const targetRoute = menus.filter(item => id === item.id)[0];
       roles.push({
-        title: titles[id],
-        key: keys[id],
+        title: targetRoute.menu_name,
+        key: targetRoute.menu_key,
+        icon: targetRoute.icon,
+        sort: targetRoute.menu_order,
+        parentId: targetRoute.parentId,
+        type: targetRoute.menu_type,
+        id: targetRoute.id,
       });
     });
     return roles;
