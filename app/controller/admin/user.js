@@ -18,6 +18,9 @@ class UserController extends Controller {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
     param.update_time = service.tools.time();
+    if (param.theme) {
+      param.theme = '#304156';
+    }
     const result = service.sql.insert({ table: 'users', param });
     this.success({ result, type: '添加' });
   }
