@@ -1,6 +1,6 @@
 'use strict';
 
-const whiteList = [ '/login', '/userInfo', '/logout', '/captcha' ];
+const whiteList = [ '/user/login', '/user/info', '/user/logout', '/user/captcha', '/user/theme' ];
 
 module.exports = () => {
   return async function auth(ctx, next) {

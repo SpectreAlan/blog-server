@@ -10,10 +10,11 @@ module.exports = app => {
  */
   // 登录
   router.get('/', controller.home.index);
-  router.get('/captcha', app.controller.user.captcha);
-  router.post('/login', controller.user.login);
-  router.post('/logout', controller.user.logout);
-  router.post('/userInfo', controller.user.userInfo);
+  router.get('/user/captcha', controller.user.captcha);
+  router.post('/user/login', controller.user.login);
+  router.post('/user/logout', controller.user.logout);
+  router.post('/user/info', controller.user.userInfo);
+  router.post('/user/theme', controller.admin.user.edit);
   // 报表
   router.post('/dashboard/search', controller.report.dashboard);
   router.post('/dashboard/item', controller.report.item);

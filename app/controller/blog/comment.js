@@ -6,7 +6,7 @@ class CommentController extends Controller {
   async search() {
     const { service } = this;
     const total = await service.sql.selectCount('comment');
-    const list = await service.sql.select({ table: 'comment', columns: [ 'id', 'article_id', 'comment', 'email', 'article_name', 'nick_name', 'parent_name', 'create_time', 'parent_id', 'browser_name', 'system_name', 'status' ], orders: [ 'create_time', 'desc' ] });
+    const list = await service.sql.select({ table: 'comment', columns: [ 'id', 'article_id', 'comment', 'email', 'article_name', 'nick_name', 'parent_name', 'create_time', 'parent_id', 'browser_name', 'system_name', 'status', 'author' ], orders: [ 'create_time', 'desc' ] });
     this.success({ result: { total, list } });
   }
   async add() {

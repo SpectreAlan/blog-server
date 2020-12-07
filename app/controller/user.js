@@ -15,7 +15,7 @@ class UserController extends Controller {
     //   this.error('验证码错误');
     //   return;
     // }
-    const param = { table: 'users', columns: [ 'account', 'nick_name', 'role_id', 'avatar' ], where: { account: username, user_pwd: password, status: 1 } };
+    const param = { table: 'users', columns: [ 'id', 'account', 'nick_name', 'role_id', 'avatar', 'theme' ], where: { account: username, user_pwd: password, status: 1 } };
     const query = await service.sql.select(param);
     const result = query[0];
     if (result) {
