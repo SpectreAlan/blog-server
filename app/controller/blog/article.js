@@ -4,11 +4,13 @@ const Controller = require('../base_controller');
 
 class ArticleController extends Controller {
   async search() {
-    const { service } = this;
+    const { service, ctx } = this;
     const total = await service.sql.selectCount('article');
+    const { article_title } = ctx.request.body;
     const list = await service.sql.select({
       table: 'article',
       columns: [ 'id', 'article_title', 'category_name', 'create_time', 'update_time', 'tag_name', 'readed', 'cover', 'status' ],
+      where: { article_title },
       orders: [ 'create_time', 'desc' ],
     });
     this.success({ result: { total, list } });

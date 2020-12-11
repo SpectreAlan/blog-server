@@ -2,7 +2,6 @@
 
 const Controller = require('./base_controller');
 
-
 class WebController extends Controller {
   async search() {
     const { service, app, ctx } = this;

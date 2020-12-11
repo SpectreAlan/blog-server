@@ -2,6 +2,8 @@
 
 const Service = require('egg').Service;
 const parser = require('ua-parser-js');
+const axios = require('axios');
+const iconv = require('iconv-lite');
 class WebService extends Service {
   async homeData(category, recent, tags, poems, notice) {
     const res = {};
@@ -36,9 +38,17 @@ class WebService extends Service {
       const Os = device.getOS();
       const system_name = Os.name + ' ' + Os.version;
       const create_time = service.tools.time();
-      const city_name = ctx.request.body.city;
-      await service.sql.insert({ table: 'statistics', param: { ip_addr, browser_name: Browser.name, system_name, create_time, city_name } });
+      const region = service.api.web.getRegion(ip_addr); // 获取ip归属地
+      const { addr, pro, city } = region;
+      await service.sql.insert({ table: 'statistics', param: { ip_addr, browser_name: Browser.name, system_name, create_time, city_name: city, addr, pro, city } });
     }
+  }
+  async getRegion(ip) { // 获取ip归属地
+    const res = await axios.get(`http://whois.pconline.com.cn/ipJson.jsp?ip=${ip}&json=true`, { responseType: 'arraybuffer' });
+    const str = iconv.decode(Buffer.from(res.data), 'gb2312'); // arraybuffer解码
+    const html = iconv.encode(str, 'utf8').toString(); // 转字符串
+    const reg = /\{.*?\}/gi; // 截取json
+    return JSON.parse(html.match(reg)[0]);
   }
   async articleList() {
     const { app, ctx } = this;
