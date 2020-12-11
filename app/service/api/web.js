@@ -38,9 +38,9 @@ class WebService extends Service {
       const Os = device.getOS();
       const system_name = Os.name + ' ' + Os.version;
       const create_time = service.tools.time();
-      const region = service.api.web.getRegion(ip_addr); // 获取ip归属地
+      const region = await service.api.web.getRegion(ip_addr); // 获取ip归属地
       const { addr, pro, city } = region;
-      await service.sql.insert({ table: 'statistics', param: { ip_addr, browser_name: Browser.name, system_name, create_time, city_name: city, addr, pro, city } });
+      await service.sql.insert({ table: 'statistics', param: { ip_addr, browser_name: Browser.name, system_name, create_time, city_name: city, addr, pro } });
     }
   }
   async getRegion(ip) { // 获取ip归属地
