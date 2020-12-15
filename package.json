@@ -7,6 +7,7 @@
     "declarations": true
   },
   "dependencies": {
+    "ali-oss": "^6.12.0",
     "axios": "^0.20.0",
     "egg": "^2.15.1",
     "egg-mysql": "^3.0.0",

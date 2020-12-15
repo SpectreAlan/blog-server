@@ -53,7 +53,7 @@ class ToolsService extends Service {
   }
   cover() {
     const i = parseInt(Math.random() * 31);
-    return 'https://raw.githubusercontent.com/SpectreAlan/images/master/' + i + '.jpg';
+    return 'image-base-url/blog/cover/' + i + '.jpg';
   }
 }
 

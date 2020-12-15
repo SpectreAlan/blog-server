@@ -45,14 +45,14 @@ class ScheduleService extends Service {
   async baiduPush() {
     const { config, service } = this;
     const urls = [
-      'https://jrsee.com/about',
-      'https://jrsee.com/timeLine',
-      'https://jrsee.com/gallery',
-      'https://jrsee.com/imageZip',
+      'https://jszoo.com/about',
+      'https://jszoo.com/timeLine',
+      'https://jszoo.com/gallery',
+      'https://jszoo.com/imageZip',
     ];
     const ids = await service.sql.selectAll({ table: 'article', columns: [ 'id' ] });
     for (let i = 0; i < ids.length; i++) {
-      urls.push('https://jrsee.com/detail/' + ids[i].id);
+      urls.push('https://jszoo.com/detail/' + ids[i].id);
     }
     const data = urls.join('\n');
     const res = await axios({
