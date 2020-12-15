@@ -10,7 +10,7 @@ exports.task = async function(ctx) {
   const { service, app } = ctx;
   const url = await service.schedule.bing();
   const name = new Date().getDate() + '.jpg';
-  await service.github.delete(app.config.github.imgBaseUrl + name);
+  await service.github.delete(app.config.github.imgBaseUrl + 'blog/cover/' + name);
   const buffer = await service.schedule.buffer(url);
   await service.schedule.upload(buffer, name);
   // baidu push
