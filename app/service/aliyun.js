@@ -5,10 +5,10 @@ const axios = require('axios');
 const OSS = require('ali-oss');
 
 const oss = new OSS({
-  region: 'oss-cn-beijing',
-  accessKeyId: 'LTAI4GFF82S9kBZFYEWfhSB2',
-  accessKeySecret: 'd6U2TVRv6iKiemN5BrVn19BgnFHvwg',
-  bucket: 'jrsee',
+  region: '',
+  accessKeyId: '',
+  accessKeySecret: '',
+  bucket: '',
 });
 
 
