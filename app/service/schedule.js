@@ -22,7 +22,7 @@ class ScheduleService extends Service {
         Authorization: 'token ' + config.github.token,
       },
       method: 'put',
-      url: config.github.reqBaseUrl + name,
+      url: config.github.reqBaseUrl + 'blog/cover/' + name,
       data: JSON.stringify({
         message: 'update image ' + time,
         content: base64,
