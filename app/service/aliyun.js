@@ -1,7 +1,6 @@
 'use strict';
 
 const Service = require('egg').Service;
-const axios = require('axios');
 const OSS = require('ali-oss');
 
 
@@ -17,16 +16,9 @@ class AliyunService extends Service {
   }
   async delete(url) {
     const { config } = this;
-    const baseUrl = config.github.reqBaseUrl + url.split('master/')[1];
-    const sha = await axios.get(baseUrl);
-    const res = await axios(
-      {
-        method: 'delete',
-        url: baseUrl,
-        data: JSON.stringify({ message: 'delete image', sha: sha.data.sha }),
-        headers: { 'Content-Type': 'application/json', Authorization: 'token ' + config.github.token },
-      });
-    return res.status === 200;
+    const oss = new OSS(config.aliyun);
+    const result = await oss.delete(url);
+    return result.res.status === 204;
   }
 }
 
