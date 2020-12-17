@@ -21,14 +21,14 @@ class ImagesController extends Controller {
     // 删除本地数据库存储
     const result = await service.sql.delete({ table: 'images' });
     if (result) {
-      // 查询图床
-      const imageStorage = await service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'imageStorage' } });
+      // 获取图床
+      const imageStorage = await service.tools.imageStorage();
       // 查询图床代理字段
       const imageBaseUrl = await service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'imageBaseUrl' } });
       // 获取图片路径
       const url = ctx.request.body.image_url.replace(imageBaseUrl[0].setting_content, '');
       // 删除图床文件
-      const res = await service[imageStorage[0].setting_content].delete(url);
+      const res = await service[imageStorage].delete(url);
       this.success({ result: res, type: '删除' });
     } else {
       this.error('删除失败');

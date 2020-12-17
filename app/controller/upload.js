@@ -10,7 +10,8 @@ class UploadController extends Controller {
     const type = file.mime.split('/')[1];
     const title = (path || '/blog/common/') + new Date().getTime() + '.' + type;
     const create_time = service.tools.time();
-    const url = await service.aliyun.upload(type, file, title, create_time);
+    const imageStorage = await service.tools.imageStorage(); // 获取图床
+    const url = await service[imageStorage].upload(type, file, title, create_time);
     if (url) {
       if (!storage) {
         await service.sql.insert({ table: 'images', param: {
