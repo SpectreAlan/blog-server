@@ -4,13 +4,6 @@ const Service = require('egg').Service;
 const axios = require('axios');
 const OSS = require('ali-oss');
 
-const oss = new OSS({
-  region: '',
-  accessKeyId: '',
-  accessKeySecret: '',
-  bucket: '',
-});
-
 
 class AliyunService extends Service {
   async upload(type, file, title) {
@@ -18,6 +11,7 @@ class AliyunService extends Service {
     if (!config.imageType.includes(type)) {
       ctx.throw(400, '格式有误，仅支持png、jpg、jpeg、gif格式的图片');
     }
+    const oss = new OSS(config.aliyun);
     const result = await oss.put(title, file.filepath);
     return result.url;
   }

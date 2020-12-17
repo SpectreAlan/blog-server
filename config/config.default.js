@@ -68,6 +68,12 @@ module.exports = appInfo => {
     imgBaseUrl: 'https://raw.githubusercontent.com/SpectreAlan/images/master/',
     token: '',
   };
+  config.aliyun = {
+    region: '',
+    accessKeyId: '',
+    accessKeySecret: '',
+    bucket: '',
+  };
   config.bing = 'https://cn.bing.com/HPImageArchive.aspx?format=js&idx=0&n=1';
   config.hitokoto = 'https://v1.hitokoto.cn';
   config.baiduPush = 'http://data.zz.baidu.com/urls?site=https://jszoo.com&token=Vzm6yLROGTuW529Q';
