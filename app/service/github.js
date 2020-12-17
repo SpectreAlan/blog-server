@@ -25,12 +25,12 @@ class GithubService extends Service {
   }
   async delete(url) {
     const { config } = this;
-    const baseUrl = config.github.reqBaseUrl + url.split('master/')[1];
-    const sha = await axios.get(baseUrl);
+    url = config.github.reqBaseUrl + url;
+    const sha = await axios.get(url);
     const res = await axios(
       {
         method: 'delete',
-        url: baseUrl,
+        url,
         data: JSON.stringify({ message: 'delete image', sha: sha.data.sha }),
         headers: { 'Content-Type': 'application/json', Authorization: 'token ' + config.github.token },
       });
