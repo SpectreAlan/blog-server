@@ -7,12 +7,11 @@ exports.schedule = {
 
 exports.task = async function(ctx) {
   // fullPage
-  const { service, app } = ctx;
-  const url = await service.schedule.bing();
-  const name = new Date().getDate() + '.jpg';
-  await service.github.delete(app.config.github.imgBaseUrl + 'blog/cover/' + name);
-  const buffer = await service.schedule.buffer(url);
-  await service.schedule.upload(buffer, name);
+  const { service } = ctx;
+  const url = await service.schedule.bing(); // 获取bing图片地址
+  const name = '/blog/cover/' + new Date().getDate() + '.jpg'; // 获取当日图片路径
+  const imageStorage = await service.tools.imageStorage(); // 获取当图床类型
+  await service.schedule[imageStorage](name, url); // 调用图床上传
   // baidu push
   await service.schedule.baiduPush();
   // 一言
