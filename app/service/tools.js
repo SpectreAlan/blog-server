@@ -55,6 +55,11 @@ class ToolsService extends Service {
     const i = parseInt(Math.random() * 31);
     return 'image-base-url/blog/cover/' + i + '.jpg';
   }
+  async imageStorage() {
+    // 查询图床
+    const imageStorage = await this.service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'imageStorage' } });
+    return imageStorage[0].setting_content;
+  }
 }
 
 module.exports = ToolsService;
