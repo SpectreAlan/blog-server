@@ -30,7 +30,12 @@ class GithubService extends Service {
   async delete(url) {
     const { config } = this;
     url = config.github.reqBaseUrl + url;
-    const sha = await axios.get(url);
+    let sha = null;
+    try {
+      sha = await axios.get(url);
+    } catch (e) {
+      return true;
+    }
     const res = await axios(
       {
         method: 'delete',
