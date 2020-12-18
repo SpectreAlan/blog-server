@@ -36,11 +36,23 @@ class WebService extends Service {
       const device = new parser(ctx.request.header['user-agent']);
       const Browser = device.getBrowser();
       const Os = device.getOS();
-      const system_name = Os.name + ' ' + Os.version;
+      const system_name = (Os.name || 'Windows 10') + ' ' + (Os.version || '');
       const create_time = service.tools.time();
       const region = await service.api.web.getRegion(ip_addr); // 获取ip归属地
-      const { addr, pro, city } = region;
-      await service.sql.insert({ table: 'statistics', param: { ip_addr, browser_name: Browser.name, system_name, create_time, city_name: city, addr, pro } });
+      let { addr, pro, city } = region;
+      const arr = [ '香港', '澳门' ];
+      if (pro && !arr.includes(pro) && !pro.includes('市') && !pro.includes('省')) {
+        pro = pro + '省';
+      }
+      await service.sql.insert({ table: 'statistics', param: { ip_addr, browser_name: Browser.name || 'Edge', system_name, create_time, city_name: city, addr, pro } });
+      // 更新城市访客数
+      const updateCityCount = `UPDATE city set n= IFNULL(n,0)+1 WHERE city_name = '${city}'`;
+      await app.mysql.query(updateCityCount);
+      // 更新省份访客数
+      if (pro) {
+        const updateProCount = `UPDATE city set n= IFNULL(n,0)+1 WHERE city_name = '${pro}'`;
+        await app.mysql.query(updateProCount);
+      }
     }
   }
   async getRegion(ip) { // 获取ip归属地

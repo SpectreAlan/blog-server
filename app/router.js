@@ -19,6 +19,7 @@ module.exports = app => {
   router.post('/dashboard/search', controller.report.dashboard);
   router.post('/dashboard/item', controller.report.item);
   router.get('/dashboard/category', controller.report.category);
+  router.get('/dashboard/city', controller.report.city);
   // 用户管理
   router.post('/users/search', controller.admin.user.search);
   router.post('/users/add', controller.admin.user.add);

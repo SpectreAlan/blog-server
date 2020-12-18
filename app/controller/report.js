@@ -43,6 +43,11 @@ class ReportController extends Controller {
     const result = await service.api.report.item(list);
     this.success({ result });
   }
+  async city() {
+    const { service } = this;
+    const result = await service.sql.selectAll({ table: 'city', columns: [ 'city_name', 'x', 'y', 'n' ] });
+    this.success({ result });
+  }
 }
 
 module.exports = ReportController;
