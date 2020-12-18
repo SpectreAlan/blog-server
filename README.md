@@ -10,7 +10,7 @@
 </div>
 
 # 简介
-项目基于eggjs搭建，提供博客前台和博客后台管理系统的API数据接口
+项目基于eggjs搭建，提供博客前台和博客后台管理系统的API数据接口，搭配 [博客前台](https://github.com/SpectreAlan/blog-nextjs) 以及 [后台管理](https://github.com/SpectreAlan/blog_admin) 一起组成完整的个人博客系统
 
 # 功能
 
