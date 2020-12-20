@@ -57,7 +57,8 @@ class ToolsService extends Service {
   }
   async imageStorage() {
     // 查询图床
-    const imageStorage = await this.service.sql.select({ table: 'settings', columns: [ 'setting_content' ], where: { setting_key: 'imageStorage' } });
+    const sql = "select setting_content from settings where setting_key = 'imageStorage'";
+    const imageStorage = await this.app.mysql.query(sql);
     return imageStorage[0].setting_content;
   }
 }
