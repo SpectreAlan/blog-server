@@ -13,6 +13,7 @@ class CommentController extends Controller {
     const { service, ctx } = this;
     const param = { ...ctx.request.body };
     param.create_time = service.tools.time();
+    param.parent_id = param.parent_id || -1;
     const result = service.sql.insert({ table: 'comment', param });
     this.success({ result, type: '添加' });
   }
