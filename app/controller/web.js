@@ -71,6 +71,7 @@ class WebController extends Controller {
     const detail = await service.sql.select({
       table: 'article',
       columns: [ 'id', 'content', 'tic', 'article_title', 'create_time', 'update_time', 'article_des', 'category_name', 'readed', 'keywords' ],
+      where: { status: 1 }
     });
     const result = detail[0];
     if (!result) {
