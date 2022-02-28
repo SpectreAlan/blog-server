@@ -40,7 +40,12 @@ class WebController extends Controller {
   }
   async timeLine() {
     const { service } = this;
-    const list = await service.sql.selectAll({ table: 'article', columns: [ 'id', 'cover', 'article_title', 'create_time' ] });
+    const list = await service.sql.select({
+      table: 'article',
+      columns: [ 'id', 'article_title', 'create_time', 'cover' ],
+      orders: [ 'update_time', 'asc' ],
+      where: { status: 1 },
+    });
     const image = service.tools.cover();
     this.success({ result: { list, image } });
   }
